@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Harvest Online</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color:ghostwhite">
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/lib/images/output-onlinepngtools.png" />
+            </a>
+            <!--This is the Title For The Page-->
+            <p style="font-size:300%; margin-left:20px">SIGN IN</p>
+        </nav>
+    </header>
+    <div class="container" style="position: fixed;" >
+        <main role="main">
+            <img src ="~/lib/images/back.png" style="position:absolute; margin-top:-18px; margin-left:-20px; margin-right:-2px;object-fit:contain"/>
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted" style="background-color:ghostwhite">
+        <div class="container" style="color:black">
+            &copy; 2021 - Harvest Online Inc. All Rights Reserved
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
