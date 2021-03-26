@@ -23,16 +23,38 @@ namespace HarvestOnline.Controllers
             _context = context;        
         }
 
-        public IActionResult Index()
+        public IActionResult Index(String searchby, String search)
         {
             var list = _context.Products.ToList();
-            return View(list);
+            //Code block for search
+            ApplicationUser user = new ApplicationUser();
+            if (searchby == "ItemName")
+            {
+                return View(list.Where(x => x.ItemName.StartsWith(search)).ToList());
+            }
+            else if(searchby == "Supplier")
+            {
+                return View(list.Where(x => x.Supplier.StartsWith(search)).ToList());
+            }
+            else
+            {
+                return View(list);
+            }
         }
 
-        public IActionResult DisplayView()
+        public IActionResult DisplayView(String searchby, String search)
         {
             var list = _context.Products.ToList();
-            return View(list);
+            //Code block for search
+            ApplicationUser user = new ApplicationUser();
+            if(searchby =="ItemName")
+            {
+                return View(list.Where(x => x.ItemName.StartsWith(search)).ToList());
+            }
+            else
+            {
+                return View(list);
+            }
         }
 
         public IActionResult Create()
@@ -99,7 +121,6 @@ namespace HarvestOnline.Controllers
             product.ItemUnit = record.ItemUnit;
             product.Price = record.Price;
             product.ItemPortionPrice = record.ItemPortionPrice;
-            //product.ImagePath = record.ImagePath;
             product.DateModified = DateTime.Now;
 
             _context.Products.Update(product);

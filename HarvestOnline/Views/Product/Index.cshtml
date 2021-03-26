@@ -2,13 +2,16 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+@*<link href="~/css/font-awesome.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />*@
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table id="records" class="table">
     <thead>
         <tr>
             <th>
@@ -45,43 +48,65 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemSellingQuanity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemPortionPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateModified)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ItemId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4" style="color:red; font-family:'Franklin Gothic Book'"> No rows match the Search Criteria!</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Supplier)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemSellingQuanity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemPortionPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImagePath)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateModified)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ItemId"><i class="btn btn btn-info fa fa-edit"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.ItemId" onclick='return confirm("Are You Sure?");'> <i class="btn btn-danger fa fa-remove"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+
     </tbody>
 </table>
+
+@*@section Scripts{
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#records').DataTable();
+        });
+
+    </script>
+}*@
