@@ -9,29 +9,12 @@
     <div style="margin-top:30px; display:grid;grid-template-columns:auto auto auto auto">
         @foreach (var item in Model)
         {
-            <figure style="text-align:center">
+            <figure style="text-align:center; margin-bottom:20px">
                 <img style="width:240px; height:200px" src="@Url.Content(item.ImagePath)" />
                 <figcaption>@Html.DisplayFor(modelItem => item.ItemName)</figcaption>
                 <figcaption>@Html.DisplayFor(modelItem => item.Price)</figcaption>
                 <figcaption><input type="submit" value="Add To Cart" class="btn btn alert-info"/></figcaption>
             </figure>
         }
-        @*<table style="table-layout:fixed;columns:4">
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td style="padding:20px 20px 20px 20px;">
-                        <div>
-                            <figure>
-                                <img style="width:240px; height:200px" src="@Url.Content(item.ImagePath)" />
-                                <figcaption style="text-align:center">@Html.DisplayFor(modelItem => item.ItemName)</figcaption>
-                                <figcaption style="text-align:center">@Html.DisplayFor(modelItem => item.Price)</figcaption>
-                                <figcaption><input type="submit" value="Add To Cart" class="btn btn alert-info" style="text-align:center; margin-left:25%" /></figcaption>
-                            </figure>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </table>*@
     </div>
 </section>
