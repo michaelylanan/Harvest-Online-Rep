@@ -13,7 +13,7 @@ namespace HarvestOnline.Models
     {
         [Key]
         public int UserId { get; set; }
-        
+        // Hey it works now XD
         
         public string Password { get; set; }
         public string ReTypePassword { get; set; }
