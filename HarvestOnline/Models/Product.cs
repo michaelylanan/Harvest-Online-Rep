@@ -17,18 +17,18 @@ namespace HarvestOnline.Models
         public int ItemId { get; set; }
 
         [Display(Name = "Item Name")]
-        [Required(ErrorMessage ="Required")]
+        [Required(ErrorMessage = "Required")]
         public string ItemName { get; set; }
 
         [Required(ErrorMessage = "Required")]
         public string Supplier { get; set; }
 
         [Display(Name = "Selling Quantity")]
-        [Range(0.00, 1000.00, ErrorMessage ="Invalid Selling Quantity Range")]
+        [Range(0.00, 1000.00, ErrorMessage = "Invalid Selling Quantity Range")]
         public double ItemSellingQuanity { get; set; }
 
-        [Display(Name ="Item Unit")]
-        public string ItemUnit {get;set;}
+        [Display(Name = "Item Unit")]
+        public string ItemUnit { get; set; }
 
         [Range(0.00, 1000000.00, ErrorMessage = "Invalid Price Range")]
         public decimal Price { get; set; }
@@ -38,7 +38,7 @@ namespace HarvestOnline.Models
         public decimal ItemPortionPrice { get; set; }
 
         [Display(Name = "Image")]
-        public  string ImagePath { get; set; }
+        public string ImagePath { get; set; }
 
         [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }

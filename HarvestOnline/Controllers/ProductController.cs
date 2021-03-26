@@ -10,6 +10,7 @@ using HarvestOnline.Models;
 
 using System.IO;
 using System.Web;
+using Microsoft.AspNetCore.Http;
 
 
 namespace HarvestOnline.Controllers
@@ -40,18 +41,32 @@ namespace HarvestOnline.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Product record, HttpPostAttribute httpPostedFileBase)
+        public IActionResult Create(Product record, IFormFile ImagePath)
         {
-
             var product = new Product();
+
             product.ItemName = record.ItemName;
             product.Supplier = record.Supplier;
             product.ItemSellingQuanity = record.ItemSellingQuanity;
             product.ItemUnit = record.ItemUnit;
             product.Price = record.Price;
             product.ItemPortionPrice = record.ItemPortionPrice;
-            product.ImagePath = record.ImagePath;
             product.DateAdded = DateTime.Now;
+
+
+            if(ImagePath!=null)
+            {
+                if(ImagePath.Length>0)
+                {
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/products", ImagePath.FileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        ImagePath.CopyTo(stream);
+                    }
+                    product.ImagePath = "~/img/products/"+ ImagePath.FileName;
+                }
+            }
 
             _context.Products.Add(product);
             _context.SaveChanges();
@@ -84,7 +99,7 @@ namespace HarvestOnline.Controllers
             product.ItemUnit = record.ItemUnit;
             product.Price = record.Price;
             product.ItemPortionPrice = record.ItemPortionPrice;
-            product.ImagePath = record.ImagePath;
+            //product.ImagePath = record.ImagePath;
             product.DateModified = DateTime.Now;
 
             _context.Products.Update(product);

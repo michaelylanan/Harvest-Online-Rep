@@ -5,88 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table" style="table-layout:fixed">
-<!--#region Thead -->
-    @*<thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Supplier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemSellingQuanity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemUnit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemPortionPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdded)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateModified)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>*@
-<!--#endregion  -->
-    @*<tbody>*@
-@foreach (var item in Model) {
-        <tr>
-            <td style="padding:20px 20px 20px 20px">
-                <figure style="width:240px; height:200px"><img src="@Url.Content(item.ImagePath)"/>
-                    
-                    @*@Html.DisplayFor(modelItem => item.ImagePath)*@
-                <figcaption style="text-align:center">@Html.DisplayFor(modelItem => item.ItemName)</figcaption>
-                <figcaption style="text-align:center">@Html.DisplayFor(modelItem => item.Price)</figcaption>
-                </figure>
-            </td>
-            <!--#region Tbody-->
-            @*<td>
-                @Html.DisplayFor(modelItem => item.ItemName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemSellingQuanity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ItemPortionPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateModified)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>*@
-            <!--#endregion  -->
-        </tr>
-}
-    @*</tbody>*@
-</table>
+<section>
+    <div style="margin-top:30px; float:left; position:fixed">
+        <table style="table-layout:fixed">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="padding:20px 20px 20px 20px;" colspan="4" >
+                        <figure>
+                            <img style="width:240px; height:200px" src="@Url.Content(item.ImagePath)" />
+                            <figcaption style="text-align:center">@Html.DisplayFor(modelItem => item.ItemName)</figcaption>
+                            <figcaption style="text-align:center">@Html.DisplayFor(modelItem => item.Price)</figcaption>
+                            <figcaption><input type="submit" value="Add To Cart" class="btn btn alert-info" style="text-align:center; margin-left:25%" /></figcaption>
+                        </figure>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</section>
