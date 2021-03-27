@@ -27,14 +27,14 @@ namespace HarvestOnline.Controllers
         {
             var list = _context.Products.ToList();
             //Code block for search
-            ApplicationUser user = new ApplicationUser();
-            if (searchby == "ItemName")
+            ApplicationUser user = new();
+            if (searchby == "ItemName" && search != null)
             {
-                return View(list.Where(x => x.ItemName.StartsWith(search)).ToList());
+                return View(list.Where(x => x.ItemName.Contains(search)).ToList());
             }
-            else if(searchby == "Supplier")
+            else if(searchby == "Supplier" && search != null)
             {
-                return View(list.Where(x => x.Supplier.StartsWith(search)).ToList());
+                return View(list.Where(x => x.Supplier.Contains(search)).ToList());
             }
             else
             {
@@ -44,12 +44,11 @@ namespace HarvestOnline.Controllers
 
         public IActionResult DisplayView(String searchby, String search)
         {
+            ApplicationUser user = new();
             var list = _context.Products.ToList();
-            //Code block for search
-            ApplicationUser user = new ApplicationUser();
-            if(searchby =="ItemName")
-            {
-                return View(list.Where(x => x.ItemName.StartsWith(search)).ToList());
+            if(searchby =="ItemName" && search != null)
+            {   
+                return View(list.Where(x => x.ItemName.Contains(search)).ToList());
             }
             else
             {

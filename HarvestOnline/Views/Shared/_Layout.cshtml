@@ -41,21 +41,16 @@
         <img src="~/lib/images/output-onlinepngtools.png" style="vertical-align:middle" class="position-fixed; text-center">
     </div>
 
-    <div class="container">
+    <div class="container" style="position:relative; flex-grow:1; margin-bottom:50px">
         @using (Html.BeginForm("DisplayView", "Product", FormMethod.Get))
-        {
+        {   
             <b>Search By:</b>
-            @Html.RadioButton("searchBy", "ItemName") <text>Products</text>          
+            @Html.RadioButton("searchBy", "ItemName", true) <text>Products</text>          
             <br />
-            @Html.TextBox("search")<button type="submit" class="btn btn-primary btn-sm">&#128269; Search</button>
+            @Html.TextBox("search")<button type="submit" class="btn btn-primary btn-sm; fa fa-search"></button>
             <a asp-area="" asp-controller="Product" asp-action="DisplayView" class="btn btn-warning btn-sm">Display All</a>
         }
 
-        @*<form style="margin-bottom:10px">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-            <img src="~/lib/images/output-onlinejpgtools (3).png" height="30" width="30" />
-        </form>*@
         <table width="100%" style="border-top:2px solid black; border-bottom:2px solid black; color:black; font-size:20px">
             <tr>
                 <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
@@ -70,7 +65,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style="background-color:ghostwhite;">
+    <footer class="border-top footer text-muted" style="background-color:ghostwhite; display:block;">
         <div class="container" style="color:black">
             &copy; 2021 - Harvest Online Inc.
         </div>
