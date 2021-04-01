@@ -27,6 +27,8 @@ namespace HarvestOnline.Models
         [Range(0.00, 1000.00, ErrorMessage = "Invalid Selling Quantity Range")]
         public double ItemSellingQuanity { get; set; }
 
+
+        [Required(ErrorMessage = "Required")]
         [Display(Name = "Item Unit")]
         public string ItemUnit { get; set; }
 

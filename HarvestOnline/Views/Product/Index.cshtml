@@ -5,108 +5,126 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-@*<link href="~/css/font-awesome.css" rel="stylesheet" />
-<link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />*@
+<link href="~/css/font-awesome.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table id="records" class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Supplier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemSellingQuanity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemUnit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemPortionPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdded)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateModified)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Count() == 0)
+<!-- #region Old Code Block Search-->
+@*<div>
+        @using (Html.BeginForm("Index", "Product", FormMethod.Get))
         {
-            <tr>
-                <td colspan="4" style="color:red; font-family:'Franklin Gothic Book'"> No rows match the Search Criteria!</td>
-            </tr>
+            <b>Search By:</b>
+            @Html.RadioButton("searchBy", "ItemName") <text>Products</text>
+            @Html.RadioButton("searchBy", "Supplier") <text>Supplier</text>
+            <br />
+            @Html.TextBox("search")<button type="submit" class="btn btn-primary btn-sm">&#128269; Search</button>
+            <a asp-area="" asp-controller="Product" asp-action="Index" class="btn btn-warning btn-sm">Display All</a>
         }
-        else
-        {
-            @foreach (var item in Model)
+        <p>
+            <a asp-action="Create" style="background-color:burlywood; float:left;" class="btn btn-success">
+                <img src="~/lib/images/circle-cropped.png" style="height:2em; display:inline" />Create New
+            </a>
+        </p>
+    </div>*@
+<!-- #endregion-->
+
+<div>
+
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Supplier)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemSellingQuanity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemUnit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemPortionPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateAdded)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateModified)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ItemName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Supplier)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ItemSellingQuanity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ItemUnit)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ItemPortionPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ImagePath)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateAdded)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateModified)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ItemId"><i class="btn btn btn-info fa fa-edit"></i></a>
-                        <a asp-action="Delete" asp-route-id="@item.ItemId" onclick='return confirm("Are You Sure?");'> <i class="btn btn-danger fa fa-remove"></i></a>
-                    </td>
+                    <td colspan="4" style="color:red; font-family:'Franklin Gothic Book'"> No rows match the Search Criteria!</td>
                 </tr>
             }
-        }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemSellingQuanity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemUnit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemPortionPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ImagePath)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateAdded)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateModified)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ItemId"><i class="btn btn btn-info fa fa-edit"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.ItemId" onclick='return confirm("Are You Sure?");'> <i class="btn btn-danger fa fa-remove"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    @section Scripts{
+        <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+        <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#records').DataTable();
+            });
 
-@*@section Scripts{
-    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
-    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#records').DataTable();
-        });
-
-    </script>
-}*@
+        </script>
+    }
+</div>

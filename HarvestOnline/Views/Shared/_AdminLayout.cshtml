@@ -11,6 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+
 </head>
 <body>
     <header>
@@ -37,33 +39,143 @@
         </nav>
     </header>
 
-    <div class="text-center">
-        <img src="~/lib/images/output-onlinepngtools.png" style="vertical-align:middle" class="position-fixed; text-center">
+    <div>
+        <div style="background-color:ghostwhite; text-align:center; margin-bottom:20px" class="container">
+            <table width="100%" style="border-top:2px solid #F5F5F5; border-bottom:2px solid #F5F5F5; color:black; font-size:20px; font-family:'Courier New', monospace">
+                <tr>
+                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
+                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
+                    <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <div class="container">
-        @using (Html.BeginForm("Index", "Product", FormMethod.Get))
-        {
-            <b>Search By:</b>
-            @Html.RadioButton("searchBy", "ItemName") <text>Products</text>
-            @Html.RadioButton("searchBy", "Supplier") <text>Supplier</text>
-            <br />
-            @Html.TextBox("search")<button type="submit" class="btn btn-primary btn-sm">&#128269; Search</button>
-            <a asp-area="" asp-controller="Product" asp-action="Index" class="btn btn-warning btn-sm">Display All</a>
-        }
-        <table width="100%" style="border-top:2px solid black; border-bottom:2px solid black; color:black; font-size:20px">
-            <tr>
-                <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
-                <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
-                <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
-                <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
-                <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
-            </tr>
+
+    <div style="margin-bottom:100px;" class="container" >
+        <table style="width:auto">
+            <tbody style="margin-top:20px">
+                <tr style="display:flex">
+                    <td style="float:left; border-radius:8px; background-color:#bdf4a7;">
+                        <div style="display:inline; font-family:'Courier New', monospace">
+                            <img src="~/lib/images/output-onlinepngtools.png" style="vertical-align:middle" class="position-fixed; text-center">
+                            <hr />
+                            <div>
+                                <h4>
+                                    <a asp-action="Index" class="nav-link text-dark">
+                                        <img src="~/lib/images/circle-cropped (6).png" style="height:2em;" />Check Inventory
+                                    </a>
+                                </h4>
+
+                                <h4>
+                                    <a asp-action="Create" class="nav-link text-dark">
+                                        <img src="~/lib/images/circle-cropped.png" style="height:2em;" /> Add New Product
+                                    </a>
+                                </h4>
+
+                                <h4>
+                                    <a asp-action="Index" class="nav-link text-dark">
+                                        <img src="~/lib/images/output-onlinejpgtools (5).png" style="height:2em;" />Track Delivery Status
+                                    </a>
+                                </h4>
+
+
+
+                            </div>
+
+                        </div>
+                    </td>
+                    <td style="float:left; border-radius:8px; background-color:beige;">
+                        <div style="margin:15px 15px 15px 15px">
+                            <main role="main" class="pb-3">
+                                @RenderBody()
+                            </main>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
     </div>
+
+    <!-- #region old code block for two divs  -->
+    @*<div>
+        <div style="background-color:ghostwhite; text-align:center; margin-bottom:20px" class="container">
+            <table width="100%" style="border-top:2px solid #F5F5F5; border-bottom:2px solid #F5F5F5; color:black; font-size:20px; font-family:'Courier New', monospace">
+                <tr>
+                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
+                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
+                    <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
+                </tr>
+            </table>
+        </div>
+
+        <div style="display:inline">
+            <div style="float:left; border-radius:8px; background-color:#bdf4a7;">
+                <img src="~/lib/images/output-onlinepngtools.png" style="vertical-align:middle" class="position-fixed; text-center">
+                <hr />
+                <div style="text-align:center">
+                    <p> 
+                        <a asp-action="Index" class="nav-link text-dark"><img src="~/lib/images/circle-cropped (6).png" style="height:2em;" />Check Inventory</a>
+                    </p>
+                    <p> 
+                        <a asp-action="Index" class="nav-link text-dark"><img src="~/lib/images/output-onlinejpgtools (5).png" style="height:2em;" />Track Delivery Status</a>
+                    </p>
+                </div>
+            </div>
+            <div style="float:left; border-radius:8px; background-color:beige;">
+                <div>
+                    @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                    {
+                        <b>Search By:</b>
+                        @Html.RadioButton("searchBy", "ItemName") <text>Products</text>
+                        @Html.RadioButton("searchBy", "Supplier") <text>Supplier</text>
+                        <br />
+                        @Html.TextBox("search")<button type="submit" class="btn btn-primary btn-sm">&#128269; Search</button>
+                        <a asp-area="" asp-controller="Product" asp-action="Index" class="btn btn-warning btn-sm">Display All</a>
+                    }
+                </div>
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>*@
+
+
+
+    @*<div class="text-center">
+            <img src="~/lib/images/output-onlinepngtools.png" style="vertical-align:middle" class="position-fixed; text-center">
+        </div>
+
+        <div class="container">
+            @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+            {
+                <b>Search By:</b>
+                @Html.RadioButton("searchBy", "ItemName") <text>Products</text>
+                @Html.RadioButton("searchBy", "Supplier") <text>Supplier</text>
+                <br />
+                @Html.TextBox("search")<button type="submit" class="btn btn-primary btn-sm">&#128269; Search</button>
+                <a asp-area="" asp-controller="Product" asp-action="Index" class="btn btn-warning btn-sm">Display All</a>
+            }
+            <table width="100%" style="border-top:2px solid black; border-bottom:2px solid black; color:black; font-size:20px">
+                <tr>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
+                    <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
+                </tr>
+            </table>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>*@
+    <!-- #endregion  -->
+
 
     <footer class="border-top footer text-muted" style="background-color:ghostwhite;">
         <div class="container" style="color:black">
@@ -73,6 +185,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
