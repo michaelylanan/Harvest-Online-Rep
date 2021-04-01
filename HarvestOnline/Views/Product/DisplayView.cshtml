@@ -5,8 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section>
-    <div style="margin-top: 30px; margin-bottom: 30px; background-color: #f1fdf3; border-radius: 5px;  resize:horizontal; overflow:auto">
+
+<section style="margin-bottom: 70px;">
+    <div style="margin-top: 30px; background-color: #f1fdf3; border-radius: 5px;  resize:horizontal; overflow:auto">
         <table style="display: grid; grid-template-columns: auto auto auto auto;margin-left:25px">
             @if (Model.Count() == 0)
             {
@@ -18,14 +19,14 @@
             {
                 @foreach (var item in Model)
                 {
-                    <tbody style="margin-top:20px; font-family:'Lucida Console'">
+                    <tbody style="margin-top:20px;  margin-bottom:20px; font-family:'Lucida Console'">
                         <tr>
-                            <td style="padding:5px 5px 5px 5px">
-                                <figure style="text-align:center; margin-bottom:20px">
-                                    <img style="width:240px; height:200px; border-radius:10px" src="@Url.Content(item.ImagePath)" />
+                            <td style="padding:5px 5px 5px 5px; background-color:#FBF8ED ;border-radius:8px;">
+                                <figure style="text-align:center;">
+                                    <img style="width:240px; height:200px; border-radius:10px; margin-bottom:30px" src="@Url.Content(item.ImagePath)" />
                                     <figcaption>@Html.DisplayFor(modelItem => item.ItemName)</figcaption>
                                     <figcaption style="color:limegreen;">@Html.DisplayFor(modelItem => item.Price)</figcaption>
-                                    <figcaption><input type="submit" value="Add To Cart" class="btn btn hover btn btn-secondary" style="background-color:#ecf0dd; border-radius:8px; border-color:black" /></figcaption>
+                                    <figcaption style="margin-top:30px"><input type="submit" value="Add To Cart" class="btn btn hover btn btn-secondary" style="background-color:#ecf0dd; border-radius:8px; border-color:black" /></figcaption>
                                 </figure>
                             </td>
                         </tr>
