@@ -2,15 +2,13 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Product</h4>
+<h1 style="font-family: 'Gill Sans'">Edit Product Details</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="margin-right:20px; width:700px">
+    <div class="col-md-12" style="font-family:Courier New, Courier, monospace; margin:25px 25px 25px 25px">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ItemId" />
