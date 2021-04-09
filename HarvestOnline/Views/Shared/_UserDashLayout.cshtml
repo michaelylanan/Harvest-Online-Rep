@@ -85,12 +85,16 @@
                                 </div>
                                 <div id="SectionName" style="display:none;">
                                     <p style="margin-left:60px">
-                                        <img src="~/lib/images/circle-cropped (8).png" style="height:2em" />
-                                        Profile
+                                        <a asp-area="" asp-controller="User" asp-action="CreateProfile">
+                                            <img src="~/lib/images/circle-cropped (8).png" style="height:2em" />
+                                            Profile
+                                        </a>                                  
                                     </p>
                                     <p style="margin-left: 60px">
-                                        <img src="~/lib/images/circle-cropped (9).png" style="height:2em" />
-                                        Address
+                                        <a asp-area="" asp-controller="User" asp-action="CreateAddress">
+                                            <img src="~/lib/images/circle-cropped (9).png" style="height:2em" />
+                                            Address
+                                        </a>
                                     </p>
                                     @*<p style="margin-left: 10px">Change Password</p>*@
                                 </div>
