@@ -79,22 +79,30 @@
                             <div>
                                 <div onclick="ShowAndHide()" style="cursor: pointer">
                                     <h4 style="margin-left:30px">
+                                        <img src="~/lib/images/circle-cropped (10).png" style="height:2em" />
                                         My Account
                                     </h4>
                                 </div>
-                                <div id="SectionName" style="display:none;" >
-                                    <p style="margin-left:10px">Profile</p>
-                                    <p style="margin-left: 10px">Address</p>
-                                    <p style="margin-left: 10px">Change Password</p>
+                                <div id="SectionName" style="display:none;">
+                                    <p style="margin-left:60px">
+                                        <img src="~/lib/images/circle-cropped (8).png" style="height:2em" />
+                                        Profile
+                                    </p>
+                                    <p style="margin-left: 60px">
+                                        <img src="~/lib/images/circle-cropped (9).png" style="height:2em" />
+                                        Address
+                                    </p>
+                                    @*<p style="margin-left: 10px">Change Password</p>*@
                                 </div>
-                                @**Input here for Purchase options including the payment and things added to cart*@
-                                <div onclick="ShowAndHide()" style="cursor: pointer">
-                                    <h4 style="margin-left:30px">
+                            </div>
+
+                            <div style="cursor: pointer">                               
+                                <h4 style="margin-left:30px">
+                                    <a>
+                                        <img src="~/lib/images/circle-cropped (11).png" style="height:2em" />
                                         Purchase
-                                    </h4>
-                                </div>
-                                @**This is where the options will be revealed and hide*@
-                                <div id="SectionName" style="display:none">Text to be shown and hidden</div>
+                                    </a>
+                                </h4>                                
                             </div>
                         </div>
                     </td>
@@ -124,17 +132,17 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 
-    <SCRIPT>
+    <script type="text/javascript">
         function ShowAndHide() {
             var x = document.getElementById('SectionName');
-            if (x.style.display == 'none') {
-                x.style.display = 'block';
-            } else {
-                x.style.display = 'none';
-            }
-        }
-    </SCRIPT>
-
+                if (x.style.display == 'none') {
+                    x.style.display = 'block';
+                }
+                else {
+                    x.style.display = 'none';
+                }
+        } 
+    </script>
 </body>
 </html>
 
