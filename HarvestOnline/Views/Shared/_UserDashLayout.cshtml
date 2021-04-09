@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Harvest Online</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="~/css/pagedesign.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3; container-fluid" style="background-color:ghostwhite">
+            <div class="container-fluid" style="max-width:1500px">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1" style="list-style-type:none; padding:0;float:right; display:inline-block; font-family:'Courier New', monospace">
+                        <li class="nav-item" style="margin: 0px 10px 0px 10px;">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/lib/images/output-onlinepngtools (1).png" style="height:2em" />Notifications</a>
+                        </li>
+                        <li class="nav-item" style="margin: 0px 10px 0px 10px;">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><img src="~/lib/images/2e095de08301a57890aad6898ad8ba4c-yellow-circle-question-mark-icon-by-vexels.png" style="height:2em" />Help</a>
+                        </li>
+                        <li class="nav-item" style="margin: 0px 10px 0px 10px;">
+                            <img src="~/lib/images/output-onlinejpgtools (1).png" style="height:2em">
+                            <div class="dropdown">
+                                <button class="dropbtn">Dropdown</button>
+                                <div class="dropdown-content">
+                                    <a asp-area="" asp-controller="User" asp-action="CreateProfile">My Account</a>
+
+                                    @*Nothing here yet in the add to cart!*@
+                                    <a href="#">My Purhcase</a>
+
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div>
+        <div style="background-color:ghostwhite; text-align:center; margin-bottom:20px" class="container">
+            <table width="100%" style="border-top:2px solid #F5F5F5; border-bottom:2px solid #F5F5F5; color:black; font-size:20px; font-family:'Courier New', monospace">
+                <tr>
+                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
+                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
+                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
+                    <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div style="margin-bottom:100px; max-width:1500px" class="container">
+        <table style="width:auto">
+            <tbody style="margin-top:20px">
+                <tr style="display:flex">
+                    <td style="float:left; border-radius:8px; background-color:#bdf4a7;">
+                        <div style="display:inline; font-family:'Courier New', monospace">
+                            <img src="~/lib/images/output-onlinepngtools.png" style="vertical-align:middle" class="position-fixed; text-center">
+                            <hr />
+                            <div>
+                                <div onclick="ShowAndHide()" style="cursor: pointer">
+                                    <h4 style="margin-left:30px">
+                                        My Account
+                                    </h4>
+                                </div>
+                                <div id="SectionName" style="display:none;" >
+                                    <p style="margin-left:10px">Profile</p>
+                                    <p style="margin-left: 10px">Address</p>
+                                    <p style="margin-left: 10px">Change Password</p>
+                                </div>
+                                @**Input here for Purchase options including the payment and things added to cart*@
+                                <div onclick="ShowAndHide()" style="cursor: pointer">
+                                    <h4 style="margin-left:30px">
+                                        Purchase
+                                    </h4>
+                                </div>
+                                @**This is where the options will be revealed and hide*@
+                                <div id="SectionName" style="display:none">Text to be shown and hidden</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="float:left; border-radius:8px; background-color:beige;">
+                        <div style="margin:15px 15px 15px 15px">
+                            <main role="main" class="pb-3">
+                                @RenderBody()
+                            </main>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <footer class="border-top footer text-muted" style="background-color:ghostwhite;">
+        <div class="container" style="color:black">
+            &copy; 2021 - Harvest Online Inc.
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <SCRIPT>
+        function ShowAndHide() {
+            var x = document.getElementById('SectionName');
+            if (x.style.display == 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
+    </SCRIPT>
+
+</body>
+</html>
+
+
