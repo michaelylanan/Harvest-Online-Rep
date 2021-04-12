@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HarvestOnline.Models.ApplicationUser>
+﻿@*@model IEnumerable<HarvestOnline.Models.ApplicationUser>*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,17 +27,18 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between;">
                     <ul class="navbar-nav flex-grow-1" style="list-style-type:none; padding:0;float:right; display:inline-block; font-family:'Courier New', monospace">
                         <li class="nav-item" style="margin: 0px 10px 0px 10px;">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/lib/images/output-onlinepngtools (1).png" style="height:2em" />Notifications</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Home"> <img src="~/lib/images/output-onlinepngtools (1).png" style="height:2em" />Notifications</a>
                         </li>
                         <li class="nav-item" style="margin: 0px 10px 0px 10px;">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><img src="~/lib/images/2e095de08301a57890aad6898ad8ba4c-yellow-circle-question-mark-icon-by-vexels.png" style="height:2em" />Help</a>
+                            @*Need to create a view page for privacy*@
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Home"><img src="~/lib/images/2e095de08301a57890aad6898ad8ba4c-yellow-circle-question-mark-icon-by-vexels.png" style="height:2em" />Help</a>
                         </li>
 
 
                         <li class="nav-item" style="margin: 0px 10px 0px 10px;">
                             <img src="~/lib/images/output-onlinejpgtools (1).png" style="height:2em">
                             <div class="dropdown">
-                                <button class="dropbtn">Dropdown</button>
+                                <button class="dropbtn">@ViewBag.userId</button>
                                 <div class="dropdown-content">
                                     <a asp-area="" asp-controller="User" asp-action="CreateProfile">My Account</a>
 
@@ -59,22 +60,22 @@
     </div>
 
     <div class="container-fluid" style="position: relative; font-family: 'Courier New', monospace; flex-grow: 1; margin-bottom: 50px; max-width:1500px">
-        @using (Html.BeginForm("DisplayView", "Product", FormMethod.Get))
+        @using (Html.BeginForm("DisplayView", "User", FormMethod.Get))
         {
             <b>Search By:</b>
             @Html.RadioButton("searchBy", "ItemName", true) <text>Products</text>
             <br />
             @Html.TextBox("search")<button type="submit" class="btn btn-success btn-sm; fa fa-search"></button>
-            <a asp-area="" asp-controller="Product" asp-action="DisplayView" class="btn btn-warning btn-sm">Display All</a>
+            <a asp-area="" asp-controller="User" asp-action="DisplayView" class="btn btn-warning btn-sm">Display All</a>
         }
 
         <table width="100%" style="font-size:20px; margin-top:10px; background-color:#C9F8D1 /*#FDD880*/; border-radius:4px">
             <tr style="font-family:'Courier New', monospace; color:#FFFFFF">
-                <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
-                <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
-                <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
-                <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
-                <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
+                <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Home">Home</a></th>
+                <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="About">About Us</a></th>
+                <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="DisplayView">Products</a></th>
+                <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Farmers">Farmers</a></th>
+                <th><a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Contact">Contact Us</a></th>
             </tr>
         </table>
         <main role="main" class="pb-3">

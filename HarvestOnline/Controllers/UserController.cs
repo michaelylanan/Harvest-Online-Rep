@@ -18,9 +18,11 @@ namespace HarvestOnline.Controllers
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public UserController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public UserController(ApplicationDbContext context, UserManager<ApplicationUser>userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -28,23 +30,34 @@ namespace HarvestOnline.Controllers
             var list = _context.Customers.Include(c => c.ApplicationUser).ToList();
             return View(list);
         }
-        public IActionResult Home()
+
+        public IActionResult IndexAddress()
         {
+             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            var list = _context.Addresses.Include(c => c.Customer).ToList();
+            return View(list);
+        }
+        public IActionResult Home(String searchby, String search)
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
             return View();
         }
         // Create User Profile ----------------------------------------
         public IActionResult CreateProfile()
         {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateProfile(Customer record)
+        public IActionResult CreateProfile(int id, Customer record, ApplicationUser user)
         {
+               
             var customer = new Customer();
+            string userId = _userManager.GetUserId(HttpContext.User);
 
             customer.FullName = record.FullName;
-            customer.PhoneNumber = record.FullName;
+            customer.PhoneNumber = record.PhoneNumber;
             customer.ProfileName = record.ProfileName;
             customer.Gender = record.Gender;
             customer.Birthday = record.Birthday;
@@ -53,6 +66,7 @@ namespace HarvestOnline.Controllers
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
+
             return RedirectToAction("Index");
         }
         //------------------------------------------------------------------------
@@ -60,6 +74,7 @@ namespace HarvestOnline.Controllers
         //Create User Address-------------------------------------------------
         public IActionResult CreateAddress()
         {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
             return View();
         }
 
@@ -77,13 +92,14 @@ namespace HarvestOnline.Controllers
             _context.Addresses.Add(address);
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexAddress");
         }
         //------------------------------------------------------------------------
 
         // Profile Customer Edit-------------------------------------------------
         public IActionResult EditProfile(int? id)
         {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
             if (id == null)
             {
                 return RedirectToAction("Index");
@@ -92,7 +108,7 @@ namespace HarvestOnline.Controllers
             var customer = _context.Customers.Where(i => i.CustomerId == id).SingleOrDefault();
             if (customer == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAddress");
             }
             return View(customer);
         }
@@ -111,22 +127,23 @@ namespace HarvestOnline.Controllers
             _context.Customers.Update(customer);
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexAddress");
         }
         //---------------------------------------------------------------
 
         //Edit Address -----------------------------------
         public IActionResult EditAddress(int? id)
         {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAddress");
             }
 
             var address = _context.Addresses.Where(i => i.AddressId == id).SingleOrDefault();
             if (address == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexAddress");
             }
             return View(address);
         }
@@ -145,10 +162,79 @@ namespace HarvestOnline.Controllers
             _context.Addresses.Update(address);
             _context.SaveChanges();
 
+            return RedirectToAction("IndexAddress");
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var customer = _context.Customers.Where(i => i.CustomerId == id).SingleOrDefault();
+            if (customer == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
+        public IActionResult DeleteAddress(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("IndexAddress");
+            }
 
+            var customer = _context.Customers.Where(i => i.CustomerId == id).SingleOrDefault();
+            if (customer == null)
+            {
+                return RedirectToAction("IndexAddress");
+            }
+
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+
+            return RedirectToAction("IndexAddress");
+        }
+
+        public IActionResult DisplayView(String searchby, String search)
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            var list = _context.Products.ToList();
+            if (searchby == "ItemName" && search != null)
+            {
+                return View(list.Where(x => x.ItemName.Contains(search)).ToList());
+            }           
+            else
+            {
+                return View(list);
+            }
+        }
+
+
+        public IActionResult About()
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            return View();
+        }
+
+        public IActionResult Farmers()
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            return View();
+        }
 
     }
 }

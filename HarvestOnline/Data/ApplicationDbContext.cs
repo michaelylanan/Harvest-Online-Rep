@@ -18,5 +18,6 @@ namespace HarvestOnline.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

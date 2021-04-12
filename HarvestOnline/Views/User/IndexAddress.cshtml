@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HarvestOnline.Models.Address>
+
+@{
+    ViewData["Title"] = "IndexAddress";
+    Layout = "~/Views/Shared/_UserDashLayout.cshtml";
+}
+
+<div style="float:left">
+    <h1>My Address</h1>
+</div>
+
+<div style="float:right; margin:10px 10px 10px 20px">
+    <a asp-action="CreateAddress" class="btn btn-outline-success" style="background-color:#96ef8c">
+        <h4 style="color:black">Add Address</h4>
+    </a>
+</div>
+
+<table class="table" style="width:800px">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td colspan="5">
+                <div style="float:left">
+                    <p> @Html.DisplayFor(modelItem => item.BuildingNo)  @Html.DisplayFor(modelItem => item.Barangay) </p> 
+                    <p> @Html.DisplayFor(modelItem => item.City) @Html.DisplayFor(modelItem => item.Province) </p>
+                    <p> @Html.DisplayFor(modelItem => item.Region) @Html.DisplayFor(modelItem => item.PostalCode) </p>                 
+                </div>
+            </td>           
+            <td>
+                <div style="float:right">
+                    <a asp-action="EditAddress" asp-route-id="@item.AddressId" class="btn btn-info">Edit</a> |
+                    <a asp-action="DeleteAddress" asp-route-id="@item.AddressId" class="btn btn-primary" style="background-color:#f85353"
+                       onclick='return confirm("Are You Sure?");'>
+                    Delete
+                    </a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

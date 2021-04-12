@@ -60,6 +60,24 @@ namespace HarvestOnline.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("HarvestOnline.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AdminId");
+
+                    b.ToTable("Admins");
+                });
+
             modelBuilder.Entity("HarvestOnline.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")

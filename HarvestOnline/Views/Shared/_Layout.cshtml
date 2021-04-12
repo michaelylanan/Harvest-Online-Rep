@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="~/css/pagedesign.css" rel="stylesheet" />
+ 
 
 </head>
 <body style="background-color:#FFF8E9">
@@ -29,7 +31,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><img src="~/lib/images/2e095de08301a57890aad6898ad8ba4c-yellow-circle-question-mark-icon-by-vexels.png" style="height:2em" />Help</a>
                         </li>
                         <li class="nav-item" style="margin: 0px 10px 0px 10px;">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login"> <img src="~/lib/images/output-onlinejpgtools (1).png" style="height:2em">Log in | Sign in</a>
+                            <img src="~/lib/images/output-onlinejpgtools (1).png" style="height:2em">
+                            <div class="dropdown">
+                                <button class="dropbtn">Log in | Sign in</button>
+                                <div class="dropdown-content">
+                                    <a asp-area="Identity" asp-page="/Account/Login">User Login</a>
+
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">Admin Login</a>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>

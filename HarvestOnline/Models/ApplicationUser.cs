@@ -11,6 +11,7 @@ namespace HarvestOnline.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
     }
 
     public class Customer
@@ -26,11 +27,13 @@ namespace HarvestOnline.Models
         [Required(ErrorMessage = "Required*")]
         public string FullName { get; set; }
 
+
         [Display(Name = "Phone Number")]
         [Required(ErrorMessage = "Required*")]
         [StringLength(11, ErrorMessage = "Phone number must be 11 Digits!")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[.]?([0-9]{4})[. ]?([0-9]{4})$", ErrorMessage = "Entered phone format is not valid. Must be 11 digits and numeric")]
         public string PhoneNumber { get; set; }
+
 
         [Display(Name = "Profile Name")]
         [Required(ErrorMessage = "Required*")]
