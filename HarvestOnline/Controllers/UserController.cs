@@ -19,6 +19,7 @@ namespace HarvestOnline.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
         public UserController(ApplicationDbContext context, UserManager<ApplicationUser>userManager)
         {
             _context = context;
@@ -27,22 +28,26 @@ namespace HarvestOnline.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
             var list = _context.Customers.Include(c => c.ApplicationUser).ToList();
             return View(list);
         }
 
         public IActionResult IndexAddress()
         {
-             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
-            var list = _context.Addresses.Include(c => c.Customer).ToList();
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
+            var latestCId = _context.Customers.FirstOrDefault(c => c.ApplicationUser == user).CustomerId;
+            Customer cust = _context.Customers.FirstOrDefault(c => c.CustomerId == latestCId);
+
+            var list = _context.Addresses.Where(c => c.Customer == cust).ToList();
             return View(list);
         }
-        public IActionResult Home(String searchby, String search)
+        public IActionResult Home()
         {
             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
             return View();
         }
-        // Create User Profile ----------------------------------------
         public IActionResult CreateProfile()
         {
             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
@@ -50,28 +55,35 @@ namespace HarvestOnline.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateProfile(int id, Customer record, ApplicationUser user)
+        public IActionResult CreateProfile(Customer record)
         {
-               
+            var userId = _userManager.GetUserId(HttpContext.User);
+            ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
+        
+           
             var customer = new Customer();
-            string userId = _userManager.GetUserId(HttpContext.User);
+            if(customer.ApplicationUser == null)
+            {
+                customer.ApplicationUser = user;
+                customer.FullName = record.FullName;
+                customer.PhoneNumber = record.PhoneNumber;
+                customer.ProfileName = record.ProfileName;
+                customer.Gender = record.Gender;
+                customer.Birthday = record.Birthday;
+                customer.Age = record.Age;
 
-            customer.FullName = record.FullName;
-            customer.PhoneNumber = record.PhoneNumber;
-            customer.ProfileName = record.ProfileName;
-            customer.Gender = record.Gender;
-            customer.Birthday = record.Birthday;
-            customer.Age = record.Age;
+                _context.Customers.Add(customer);
+                _context.SaveChanges();
 
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+                return RedirectToAction("EditProfile");
 
-
-            return RedirectToAction("Index");
+            }  
+            else
+            {
+                return RedirectToAction("EditProfile");
+            }
+           
         }
-        //------------------------------------------------------------------------
-
-        //Create User Address-------------------------------------------------
         public IActionResult CreateAddress()
         {
             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
@@ -81,7 +93,16 @@ namespace HarvestOnline.Controllers
         [HttpPost]
         public IActionResult CreateAddress(Address record)
         {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
+
+            // this retrieves the foreign key id from customer table
+            var latestCId = _context.Customers.FirstOrDefault(c => c.ApplicationUser == user).CustomerId;
+            Customer cust = _context.Customers.FirstOrDefault(c => c.CustomerId == latestCId);
+
             var address = new Address();
+
+            address.Customer = cust;
             address.PostalCode = record.PostalCode;
             address.Region = record.Region;
             address.Province = record.Province;
@@ -92,11 +113,9 @@ namespace HarvestOnline.Controllers
             _context.Addresses.Add(address);
             _context.SaveChanges();
 
-            return RedirectToAction("IndexAddress");
+            return RedirectToAction("IndexAddress");          
         }
-        //------------------------------------------------------------------------
 
-        // Profile Customer Edit-------------------------------------------------
         public IActionResult EditProfile(int? id)
         {
             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
@@ -129,9 +148,7 @@ namespace HarvestOnline.Controllers
 
             return RedirectToAction("IndexAddress");
         }
-        //---------------------------------------------------------------
-
-        //Edit Address -----------------------------------
+        
         public IActionResult EditAddress(int? id)
         {
             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
@@ -191,13 +208,13 @@ namespace HarvestOnline.Controllers
                 return RedirectToAction("IndexAddress");
             }
 
-            var customer = _context.Customers.Where(i => i.CustomerId == id).SingleOrDefault();
-            if (customer == null)
+            var address = _context.Addresses.Where(i => i.AddressId == id).SingleOrDefault();
+            if (address == null)
             {
                 return RedirectToAction("IndexAddress");
             }
 
-            _context.Customers.Remove(customer);
+            _context.Addresses.Remove(address);
             _context.SaveChanges();
 
             return RedirectToAction("IndexAddress");

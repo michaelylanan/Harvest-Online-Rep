@@ -1,11 +1,9 @@
 ﻿@model HarvestOnline.Models.Customer
-@inject HarvestOnline.Data.ApplicationDbContext _context;
 
 @{
     ViewData["Title"] = "CreateProfile";
     Layout = "~/Views/Shared/_UserDashLayout.cshtml";
 
-    var user = _context.Users.ToList();
 }
 
 <h1>CreateProfile</h1>

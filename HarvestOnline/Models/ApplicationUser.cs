@@ -21,7 +21,7 @@ namespace HarvestOnline.Models
 
         //Foreign Key of Id in AspNetUsers
         public virtual ApplicationUser ApplicationUser { get; set; }
-        //----------------
+    
 
         [Display(Name = "Full Name")]
         [Required(ErrorMessage = "Required*")]
