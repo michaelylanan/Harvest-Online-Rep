@@ -223,6 +223,7 @@ namespace HarvestOnline.Controllers
         public IActionResult DisplayView(String searchby, String search)
         {
             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+
             var list = _context.Products.ToList();
             if (searchby == "ItemName" && search != null)
             {

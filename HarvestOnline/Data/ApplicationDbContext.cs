@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using HarvestOnline.Models;         
+using HarvestOnline.Models;        
+
 
 namespace HarvestOnline.Data
 {
@@ -19,6 +20,13 @@ namespace HarvestOnline.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<AdminUser> AdminUsers { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<AdminUser>().ToTable("Admin");
+            base.OnModelCreating(builder);
+        }
     }
 }
+
