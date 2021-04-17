@@ -13,6 +13,8 @@ using System.Text;
 
 using System.IO;
 using System.Web;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace HarvestOnline.Controllers
@@ -25,7 +27,7 @@ namespace HarvestOnline.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(AdminUser user)
         {
             return View();        
         }
@@ -103,7 +105,7 @@ namespace HarvestOnline.Controllers
             }
             else
             {
-                ViewData["Message"] = "Login Failed";
+                ViewBag.error = "Login Failed";
                 return RedirectToAction("Login");
             }
 
@@ -123,6 +125,7 @@ namespace HarvestOnline.Controllers
             }
             return byte2String;
         }
-    
+
+     
     }
 }

@@ -71,25 +71,28 @@
                 <input asp-for="Input.Password" placeholder="Password" class="form-control"/>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <div class="checkbox">
                     <label asp-for="Input.RememberMe">
                         <input asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
                 </div>
-            </div>
+            </div>*@
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Log in</button>
+                <button type="submit" class="btn" style="width:540px; background-color:#33b52e">Log in</button>
             </div>
             <hr />
             <div class="form-group">
-                <p>
+                @*<p>
                     <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                </p>
-                <p>
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                   
+                 </p>*@
+                <div style="text-align:center">
+                    <p> By signing up you agree to Harvest Online's <br /> Terms of Service & Privacy Policy</p>
+                </div>
+                <p style="text-align:center">
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:#dc922a">New to Harvest Online? Sign Up</a>
+
                 </p>
             </div>
         </form>

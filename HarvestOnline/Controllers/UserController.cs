@@ -254,5 +254,11 @@ namespace HarvestOnline.Controllers
             return View();
         }
 
+        public IActionResult Help()
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            return View();
+        }
+
     }
 }

@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
+    <link href="~/css/pagedesign.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -26,12 +26,15 @@
                     <ul class="navbar-nav flex-grow-1" style="list-style-type:none; padding:0;float:right; display:inline-block; font-family:'Courier New', monospace">
                         <li class="nav-item" style="margin: 0px 10px 0px 10px;">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"> <img src="~/lib/images/output-onlinepngtools (1).png" style="height:2em" />Notifications</a>
-                        </li>
+                        </li>             
                         <li class="nav-item" style="margin: 0px 10px 0px 10px;">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><img src="~/lib/images/2e095de08301a57890aad6898ad8ba4c-yellow-circle-question-mark-icon-by-vexels.png" style="height:2em" />Help</a>
-                        </li>
-                        <li class="nav-item" style="margin: 0px 10px 0px 10px;">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login"> <img src="~/lib/images/output-onlinejpgtools (1).png" style="height:2em">Admin Log in | Sign in</a>
+                            <img src="~/lib/images/output-onlinejpgtools (1).png" style="height:2em">
+                            <div class="dropdown">
+                                <button class="dropbtn">Admin</button>
+                                <div class="dropdown-content">
+                                    <a asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -39,21 +42,7 @@
         </nav>
     </header>
 
-    <div>
-        <div style="background-color:ghostwhite; text-align:center; margin-bottom:20px" class="container">
-            <table width="100%" style="border-top:2px solid #F5F5F5; border-bottom:2px solid #F5F5F5; color:black; font-size:20px; font-family:'Courier New', monospace">
-                <tr>
-                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
-                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
-                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
-                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
-                    <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-
+   
     <div style="margin-bottom:100px; max-width:1500px" class="container-fluid">
         <table style="width:auto">
             <tbody style="margin-top:20px">
@@ -99,84 +88,7 @@
         </table>
     </div>
 
-    <!-- #region old code block for two divs  -->
-    @*<div>
-        <div style="background-color:ghostwhite; text-align:center; margin-bottom:20px" class="container">
-            <table width="100%" style="border-top:2px solid #F5F5F5; border-bottom:2px solid #F5F5F5; color:black; font-size:20px; font-family:'Courier New', monospace">
-                <tr>
-                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
-                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
-                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
-                    <th width="21%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
-                    <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
-                </tr>
-            </table>
-        </div>
-
-        <div style="display:inline">
-            <div style="float:left; border-radius:8px; background-color:#bdf4a7;">
-                <img src="~/lib/images/output-onlinepngtools.png" style="vertical-align:middle" class="position-fixed; text-center">
-                <hr />
-                <div style="text-align:center">
-                    <p> 
-                        <a asp-action="Index" class="nav-link text-dark"><img src="~/lib/images/circle-cropped (6).png" style="height:2em;" />Check Inventory</a>
-                    </p>
-                    <p> 
-                        <a asp-action="Index" class="nav-link text-dark"><img src="~/lib/images/output-onlinejpgtools (5).png" style="height:2em;" />Track Delivery Status</a>
-                    </p>
-                </div>
-            </div>
-            <div style="float:left; border-radius:8px; background-color:beige;">
-                <div>
-                    @using (Html.BeginForm("Index", "Product", FormMethod.Get))
-                    {
-                        <b>Search By:</b>
-                        @Html.RadioButton("searchBy", "ItemName") <text>Products</text>
-                        @Html.RadioButton("searchBy", "Supplier") <text>Supplier</text>
-                        <br />
-                        @Html.TextBox("search")<button type="submit" class="btn btn-primary btn-sm">&#128269; Search</button>
-                        <a asp-area="" asp-controller="Product" asp-action="Index" class="btn btn-warning btn-sm">Display All</a>
-                    }
-                </div>
-                <main role="main" class="pb-3">
-                    @RenderBody()
-                </main>
-            </div>
-        </div>
-    </div>*@
-
-
-
-    @*<div class="text-center">
-            <img src="~/lib/images/output-onlinepngtools.png" style="vertical-align:middle" class="position-fixed; text-center">
-        </div>
-
-        <div class="container">
-            @using (Html.BeginForm("Index", "Product", FormMethod.Get))
-            {
-                <b>Search By:</b>
-                @Html.RadioButton("searchBy", "ItemName") <text>Products</text>
-                @Html.RadioButton("searchBy", "Supplier") <text>Supplier</text>
-                <br />
-                @Html.TextBox("search")<button type="submit" class="btn btn-primary btn-sm">&#128269; Search</button>
-                <a asp-area="" asp-controller="Product" asp-action="Index" class="btn btn-warning btn-sm">Display All</a>
-            }
-            <table width="100%" style="border-top:2px solid black; border-bottom:2px solid black; color:black; font-size:20px">
-                <tr>
-                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></th>
-                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About Us</a></th>
-                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="DisplayView">Products</a></th>
-                    <th width="22%"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Farmers">Farmers</a></th>
-                    <th><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a></th>
-                </tr>
-            </table>
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>*@
-    <!-- #endregion  -->
-
-
+   
     <footer class="border-top footer text-muted" style="background-color:ghostwhite;">
         <div class="container" style="color:black">
             &copy; 2021 - Harvest Online Inc.

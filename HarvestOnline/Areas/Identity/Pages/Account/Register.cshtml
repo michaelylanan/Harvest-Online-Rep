@@ -9,7 +9,7 @@
         <img src="~/lib/images/Cebu_Dalaguete_10365_0191-Edit.jpg" height="550" width="800" />
     </div>
     <div style="float:right;margin-top:50px">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" style="background-color:whitesmoke; border-color:black; 
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" style="background-color:whitesmoke; border-color:black;
               position:absolute; float:right; height:550px" class="border border-white rounded w-50 p-3">
             <h4>Create a new account.</h4>
             <hr />
@@ -29,7 +29,15 @@
                 <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn" style="width:540px; background-color:#e6cf72">Sign in</button>
+            <hr />
+            <div style="text-align:center">
+                <p> By signing up you agree to Harvest Online's <br /> Terms of Service & Privacy Policy</p>
+            </div>
+            <p style="color:#dc922a; text-align:center">
+                <a asp-area="Identity" asp-page="/Account/Login" style="color:#dc922a"> Have an Account? Login</a>
+            </p>
+
         </form>
     </div>
 </div>

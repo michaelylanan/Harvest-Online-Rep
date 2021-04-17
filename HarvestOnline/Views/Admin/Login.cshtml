@@ -2,49 +2,65 @@
 
 @{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLoginLayout.cshtml";
 }
 
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="~/Scripts/jquery-3.0.0.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-<div class="row justify-content-md-center">
-    <div class="col-md-4">
+<section>
+    <div > 
+    <div class="col-md-4" style="float:right;margin-top:50px">
         <div class="card">
             <div class="card-header">
-                Login
+                Admin Login
             </div>
             <div class="card-body">
+                <div asp-validation-summary="All" class="text-danger"></div>
                 @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
                 {
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-15">
-                            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                            <h6 style="color:red; font-family:'Franklin Gothic Medium', 'Arial Narrow'">@Html.ViewData["Message"]</h6>
+                        @Html.LabelFor(m => m.Email)
+                        <div class="col-md-20">
+                            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "badge badge-danger" })
+                            @if (ViewBag.error != null)
+                            {
+                                <span class="badge badge-danger">@ViewBag.error</span>
+                            }
                         </div>
 
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Password)
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
-                        <h6 style="color:red; font-family:'Franklin Gothic Medium', 'Arial Narrow'">@Html.ViewData["Message"]</h6>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "badge badge-danger" })
+                        @if (ViewBag.error != null)
+                        {
+                            <span class="badge badge-danger">@ViewBag.error</span>
+                        }
                     </div>
+
                     <div class="form-group">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Login" />
+                        <input type="submit" name="submit" class="btn" style="background-color:#2c8939; width:300px" value="Login" />
+                        <hr />
+                        <div style="text-align:center">
+                            <p> By signing up you agree to Harvest Online's <br /> Terms of Service & Privacy Policy</p>
+                        </div>
+                        <p style="color:#dc922a; text-align:center">
+                            <a asp-area="" asp-controller="Admin" asp-action="Register" style="color:#dc922a"> Register as new admin user</a>
+                        </p>
                     </div>
                 }
             </div>
         </div>
     </div>
 </div>
+</section>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
