@@ -27,6 +27,8 @@ namespace HarvestOnline.Data
             builder.Entity<AdminUser>().ToTable("Admin");
             base.OnModelCreating(builder);
         }
+
+        public DbSet<HarvestOnline.Models.CheckOut> CheckOut { get; set; }
     }
 }
 

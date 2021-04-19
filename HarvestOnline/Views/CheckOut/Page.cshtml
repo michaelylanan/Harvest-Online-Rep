@@ -1,0 +1,91 @@
+﻿@model IEnumerable<HarvestOnline.Models.CheckOut>
+
+@{
+    ViewData["Title"] = "View";
+    decimal sum = 0;
+    decimal fee = 0;
+    bool once = true;
+ }
+
+
+<h1>Check Out</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>no.</th>
+            <th>Item Name</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfItem)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Qty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => (Convert.ToDecimal(item.Price) * item.Qty))
+                </td>
+            </tr>
+            fee = Convert.ToDecimal(ViewBag.ShippingFee);
+        }
+    </tbody>
+    @foreach (var item in Model)
+    {
+        sum = Convert.ToDecimal(item.Price) + sum;
+        if (once)
+        {
+            fee = Convert.ToDecimal(ViewBag.ShippingFee);
+            sum = sum + fee;
+            once = false;
+        }
+
+
+    }
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+
+
+            <td><b>Shipping Fee: </b></td>
+            <td>
+                @ViewBag.ShippingFee
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+
+
+            <td><b>Total Amount: </b></td>
+
+            <td>
+                @sum
+            </td>
+        </tr>
+
+    </tfoot>
+
+</table>
+
+<div>
+    <button type="button" class="btn btn-warning">Check Out</button>
+</div>
+
