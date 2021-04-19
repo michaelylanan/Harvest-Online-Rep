@@ -26,7 +26,7 @@ namespace HarvestOnline.Models
 
         public string Total { get; set; }
 
-        public string Status { get; set; }
+        
 
 
     }

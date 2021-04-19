@@ -29,6 +29,8 @@ namespace HarvestOnline.Data
         }
 
         public DbSet<HarvestOnline.Models.CheckOut> CheckOut { get; set; }
+
+        public DbSet<HarvestOnline.Models.Mail> Mail { get; set; }
     }
 }
 
