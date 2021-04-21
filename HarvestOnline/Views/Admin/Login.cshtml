@@ -1,7 +1,6 @@
 ﻿@model HarvestOnline.Models.AdminUser
 
 @{
-    ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_AdminLoginLayout.cshtml";
 }
 
@@ -18,6 +17,12 @@
                 Admin Login
             </div>
             <div class="card-body">
+                @if (ViewBag.error != null)
+                {
+                    <div class="alert alert-success">
+                        @ViewBag.error
+                    </div>
+                }
                 <div asp-validation-summary="All" class="text-danger"></div>
                 @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
                 {
@@ -27,10 +32,6 @@
                         <div class="col-md-20">
                             @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "badge badge-danger" })
-                            @if (ViewBag.error != null)
-                            {
-                                <span class="badge badge-danger">@ViewBag.error</span>
-                            }
                         </div>
 
                     </div>
@@ -38,10 +39,6 @@
                         @Html.LabelFor(m => m.Password)
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "badge badge-danger" })
-                        @if (ViewBag.error != null)
-                        {
-                            <span class="badge badge-danger">@ViewBag.error</span>
-                        }
                     </div>
 
                     <div class="form-group">

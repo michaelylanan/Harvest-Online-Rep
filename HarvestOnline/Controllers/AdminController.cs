@@ -27,7 +27,7 @@ namespace HarvestOnline.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(AdminUser user)
+        public IActionResult Index()
         {
             return View();        
         }
@@ -39,7 +39,7 @@ namespace HarvestOnline.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register (AdminUser user, int?id)
+        public IActionResult Register (AdminUser user)
         {
 
             var admin = new AdminUser();
@@ -84,7 +84,7 @@ namespace HarvestOnline.Controllers
 
         [HttpPost]
         public IActionResult Login(string email, string password, AdminUser user)
-        {
+        {         
             if (ModelState.IsValid)
             {
                 var hashPassword = GetMD5(password);
@@ -106,7 +106,6 @@ namespace HarvestOnline.Controllers
             else
             {
                 ViewBag.error = "Login Failed";
-                return RedirectToAction("Login");
             }
 
             return View();

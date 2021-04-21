@@ -58,7 +58,7 @@ namespace HarvestOnline.Controllers
                     smtp.Credentials = NetworkCred;
                     smtp.Port = 587;
                     smtp.Send(mail);
-                    ViewBag.Message = "Inquiry Sent";
+                    ViewBag.Message = "Confirmation Sent";
                 }
             }
              return View();

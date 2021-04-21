@@ -14,6 +14,7 @@ namespace HarvestOnline.Models
 
 
         [Required(ErrorMessage ="Required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
 
