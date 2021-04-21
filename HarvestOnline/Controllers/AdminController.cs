@@ -41,40 +41,27 @@ namespace HarvestOnline.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register (AdminUser user)
         {
+            if(ModelState.IsValid)
+            {
+                var check = _context.AdminUsers.FirstOrDefault(s => s.Email == user.Email);
 
-            var admin = new AdminUser();
+                if (check == null )
+                {
+                    user.Password = GetMD5(user.Password);
 
-            admin.Email = user.Email;     
-            admin.Password = GetMD5(user.Password);
+                    _context.AdminUsers.Add(user);
+                    _context.SaveChanges();
 
-            _context.AdminUsers.Add(admin);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index", "Product");
-
-            #region old code block
-            
-            //if(ModelState.IsValid)
-            //{
-
-            //    var check = _context.AdminUsers.FirstOrDefault(s => s.Email == user.Email);
-            //    //admin.Email = user.Email;
-
-            //    if (check != null)
-            //    {
-            //        user.Password = GetMD5(user.Password);
-            //        _context.AdminUsers.Add(user);
-            //        _context.SaveChanges();
-
-            //        return RedirectToAction("Index");
-            //    }
-            //    else
-            //    {
-            //        ViewBag.error = "Email Already Exists!";
-            //    }
-            //}
-            //return View();
-            #endregion
+                    return RedirectToAction("Index", "Product");
+                }
+                else
+                {
+                    string msg = "User already Exist!";
+                    TempData["Error"] = msg;
+                    return RedirectToAction("Register");
+                }
+            }
+            return View();          
         }
 
         public IActionResult Login()
@@ -102,12 +89,13 @@ namespace HarvestOnline.Controllers
 
                     return RedirectToAction("Index", "Product");
                 }
-            }
-            else
-            {
-                ViewBag.error = "Login Failed";
-            }
-
+                else
+                {
+                    string msg = "Incorrect Login Credentials!";
+                    TempData["Error"] = msg;
+                    return RedirectToAction("Login");
+                }
+            }         
             return View();
         }
 

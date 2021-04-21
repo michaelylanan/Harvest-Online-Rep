@@ -22,10 +22,7 @@
                             @Html.LabelFor(m => m.Email)
                             @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "badge badge-danger" })
-                            @if (ViewBag.error != null)
-                            {
-                                <span class="badge badge-danger">@ViewBag.error</span>
-                            }
+                            <div style="color:red">@TempData["Error"]</div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.Password)

@@ -16,13 +16,8 @@
             <div class="card-header">
                 Admin Login
             </div>
-            <div class="card-body">
-                @if (ViewBag.error != null)
-                {
-                    <div class="alert alert-success">
-                        @ViewBag.error
-                    </div>
-                }
+            <div class="card-body">                
+                <div style="color:red">@TempData["Error"]</div>
                 <div asp-validation-summary="All" class="text-danger"></div>
                 @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
                 {
