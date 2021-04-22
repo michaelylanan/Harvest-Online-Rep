@@ -23,7 +23,7 @@ namespace HarvestOnline.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Help()
         {
             return View();
         }

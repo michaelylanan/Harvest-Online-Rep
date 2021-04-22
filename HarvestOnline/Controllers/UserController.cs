@@ -29,7 +29,8 @@ namespace HarvestOnline.Controllers
         public IActionResult Index()
         {
             ViewBag.userId = _userManager.GetUserName(HttpContext.User);
-            var list = _context.Customers.Include(c => c.ApplicationUser).ToList();
+            ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
+            var list = _context.Customers.Where(c => c.ApplicationUser == user).ToList();
             return View(list);
         }
 
@@ -59,10 +60,11 @@ namespace HarvestOnline.Controllers
         {
             var userId = _userManager.GetUserId(HttpContext.User);
             ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
-        
-           
+
+            var check = _context.Customers.FirstOrDefault(s => s.ApplicationUser == user);
+
             var customer = new Customer();
-            if(customer.ApplicationUser == null)
+            if(check == null)
             {
                 customer.ApplicationUser = user;
                 customer.FullName = record.FullName;
@@ -75,12 +77,11 @@ namespace HarvestOnline.Controllers
                 _context.Customers.Add(customer);
                 _context.SaveChanges();
 
-                return RedirectToAction("EditProfile");
-
+                return RedirectToAction("Index");
             }  
             else
             {
-                return RedirectToAction("EditProfile");
+                return RedirectToAction("Index");
             }
            
         }
@@ -234,7 +235,6 @@ namespace HarvestOnline.Controllers
                 return View(list);
             }
         }
-
 
         public IActionResult About()
         {
