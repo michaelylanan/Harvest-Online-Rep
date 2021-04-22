@@ -4,7 +4,7 @@
     ViewData["Title"] = "Register";
 }
 
-<div>
+<div class="container-fluid">
     <div style="float:left;position:fixed;margin-top:50px; margin-left:70px">
         <img src="~/lib/images/Cebu_Dalaguete_10365_0191-Edit.jpg" height="550" width="800" />
     </div>
@@ -29,7 +29,7 @@
                 <input asp-for="Input.ConfirmPassword" placeholder="Confirm Password" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn" style="width:540px; background-color:#e6cf72">Sign in</button>
+            <button type="submit" class="btn" style="width: 100%; max-width: 540px; height: auto; background-color: #e6cf72">Sign in</button>
             <hr />
             <div style="text-align:center">
                 <p> By signing up you agree to Harvest Online's <br /> Terms of Service & Privacy Policy</p>
