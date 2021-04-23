@@ -29,12 +29,48 @@ namespace HarvestOnline.Controllers
         }
         public IActionResult Index()
         {
-            return View();        
+            return View();
         }
 
         public IActionResult Register()
         {
             return View();
+        }
+
+        public IActionResult DisplayOrders()
+        {
+            var display = _context.CheckOutUsers.ToList();
+
+            return View(display);
+        }
+
+        public IActionResult EditOrders(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("DisplayOrders");
+            }
+
+            var addToCart = _context.CheckOutUsers.Where(i => i.OrderId == id).SingleOrDefault();
+            if (addToCart == null)
+            {
+                return RedirectToAction("DisplayOrders");
+            }
+            return View(addToCart);
+        }
+        [HttpPost]
+        public IActionResult EditOrders(int? id, CheckOutUser record)
+        {
+            var CheckOutUsers = _context.CheckOutUsers.Where(i => i.OrderId == id).SingleOrDefault();
+            CheckOutUsers.ProductName = record.ProductName;
+            CheckOutUsers.TotalPrice = record.TotalPrice;
+            CheckOutUsers.DateAdded = DateTime.Now;
+            CheckOutUsers.Status = record.Status;
+
+            _context.CheckOutUsers.Update(CheckOutUsers);
+            _context.SaveChanges();
+
+            return RedirectToAction("DisplayOrders");
         }
 
         [HttpPost]
@@ -112,6 +148,8 @@ namespace HarvestOnline.Controllers
             }
             return byte2String;
         }
+
+
 
      
     }
