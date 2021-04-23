@@ -1,0 +1,68 @@
+﻿@model IEnumerable<HarvestOnline.Models.CheckOutUser>
+
+@{
+    ViewData["Title"] = "PurchaseView";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h1>Purchase View</h1>
+<a asp-area="" asp-controller="CheckOut" asp-action="Mail" style="color:red">Click Here for Payment Options</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPayment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="4" style="color:red; font-family:'Franklin Gothic Book'"> <h1>Cart is Empty</h1></td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShippingFee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalPayment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

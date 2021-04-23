@@ -1,0 +1,27 @@
+﻿@model HarvestOnline.Models.Product
+
+@{
+    ViewData["Title"] = "AddToCart";
+    ViewBag.Title = "AddToCart";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@using (@Html.BeginForm())
+{
+<div class="container">
+    <div class="row">
+        <div class=" col-lg-10 col-md-10 col-sm-10">
+            <img style="min-height: 200px; width:200px" src="@Url.Content(Model.ImagePath)" />
+        </div>
+
+        <div>
+            <h1>Product Name: @Model.ItemName</h1>
+            <h1>Product Price: @Model.Price</h1>
+            <h1>Product Selling Qty: @Model.ItemSellingQuanity</h1>
+            <input type="number" name="qty" value="1" min="1" id="qty" />
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+

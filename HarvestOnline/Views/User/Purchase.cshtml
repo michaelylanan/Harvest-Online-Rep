@@ -1,0 +1,20 @@
+﻿@model HarvestOnline.Models.AddToCart
+
+@{
+    ViewData["Title"] = "Check Out";
+    ViewBag.Title = "Purchase";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<h1>Purchased</h1>
+@using (@Html.BeginForm())
+{
+    <div class="container">
+        <div class="row">
+            <div>
+                <h1>Product Name: @Model.ProductName</h1>
+                <h1>Product Price: @Model.TotalPrice</h1>
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

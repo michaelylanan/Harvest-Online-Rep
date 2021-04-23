@@ -4,14 +4,16 @@ using HarvestOnline.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HarvestOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210423011018_CheckOutCartNew")]
+    partial class CheckOutCartNew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,20 +197,23 @@ namespace HarvestOnline.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddToCartCartId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DateAdded")
+                    b.Property<DateTime?>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ProductName")
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("ShippingFee")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int?>("ShippingFeeShippingId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShippingId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
@@ -221,9 +226,11 @@ namespace HarvestOnline.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("AddToCartCartId");
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("ShippingFeeShippingId");
 
                     b.ToTable("CheckOutUsers");
                 });
@@ -327,6 +334,24 @@ namespace HarvestOnline.Migrations
                     b.HasKey("ItemId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("HarvestOnline.Models.ShippingFee", b =>
+                {
+                    b.Property<int>("ShippingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Courrier")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Fee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ShippingId");
+
+                    b.ToTable("ShippingFees");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -490,17 +515,23 @@ namespace HarvestOnline.Migrations
 
             modelBuilder.Entity("HarvestOnline.Models.CheckOutUser", b =>
                 {
-                    b.HasOne("HarvestOnline.Models.AddToCart", "AddToCart")
+                    b.HasOne("HarvestOnline.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddToCartCartId");
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("HarvestOnline.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId");
 
-                    b.Navigation("AddToCart");
+                    b.HasOne("HarvestOnline.Models.ShippingFee", "ShippingFee")
+                        .WithMany()
+                        .HasForeignKey("ShippingFeeShippingId");
+
+                    b.Navigation("Address");
 
                     b.Navigation("Customer");
+
+                    b.Navigation("ShippingFee");
                 });
 
             modelBuilder.Entity("HarvestOnline.Models.Customer", b =>

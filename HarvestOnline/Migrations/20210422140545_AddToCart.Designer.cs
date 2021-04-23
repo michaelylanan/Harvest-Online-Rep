@@ -4,14 +4,16 @@ using HarvestOnline.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HarvestOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210422140545_AddToCart")]
+    partial class AddToCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,44 +190,37 @@ namespace HarvestOnline.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("HarvestOnline.Models.CheckOutUser", b =>
+            modelBuilder.Entity("HarvestOnline.Models.CheckOut", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddToCartCartId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ProductName")
+                    b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("ShippingFee")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("NumberOfItem")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Price")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<float>("ShippingFee")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Total")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalPayment")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("OrderId");
 
-                    b.HasIndex("AddToCartCartId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("CheckOutUsers");
+                    b.ToTable("CheckOut");
                 });
 
             modelBuilder.Entity("HarvestOnline.Models.Customer", b =>
@@ -484,21 +479,6 @@ namespace HarvestOnline.Migrations
                     b.HasOne("HarvestOnline.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId");
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("HarvestOnline.Models.CheckOutUser", b =>
-                {
-                    b.HasOne("HarvestOnline.Models.AddToCart", "AddToCart")
-                        .WithMany()
-                        .HasForeignKey("AddToCartCartId");
-
-                    b.HasOne("HarvestOnline.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("AddToCart");
 
                     b.Navigation("Customer");
                 });

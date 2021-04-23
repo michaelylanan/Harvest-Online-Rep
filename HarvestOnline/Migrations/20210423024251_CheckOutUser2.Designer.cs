@@ -4,14 +4,16 @@ using HarvestOnline.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HarvestOnline.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210423024251_CheckOutUser2")]
+    partial class CheckOutUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,14 +197,14 @@ namespace HarvestOnline.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddToCartCartId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
@@ -220,8 +222,6 @@ namespace HarvestOnline.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("AddToCartCartId");
 
                     b.HasIndex("CustomerId");
 
@@ -490,15 +490,9 @@ namespace HarvestOnline.Migrations
 
             modelBuilder.Entity("HarvestOnline.Models.CheckOutUser", b =>
                 {
-                    b.HasOne("HarvestOnline.Models.AddToCart", "AddToCart")
-                        .WithMany()
-                        .HasForeignKey("AddToCartCartId");
-
                     b.HasOne("HarvestOnline.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId");
-
-                    b.Navigation("AddToCart");
 
                     b.Navigation("Customer");
                 });

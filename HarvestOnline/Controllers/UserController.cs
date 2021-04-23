@@ -12,9 +12,10 @@ using System.IO;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace HarvestOnline.Controllers
-{
+{ 
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -260,5 +261,127 @@ namespace HarvestOnline.Controllers
             return View();
         }
 
+        public IActionResult AddToCartDisplay()
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+
+            ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
+            var latestCId = _context.Customers.FirstOrDefault(c => c.ApplicationUser == user).CustomerId;
+            Customer cust = _context.Customers.FirstOrDefault(c => c.CustomerId == latestCId);
+
+            var list = _context.AddToCarts.Where(c => c.Customer == cust).ToList();
+
+            decimal x = 0;
+            if(list != null)
+            {
+                foreach (var item in list)
+                {
+                    x += item.TotalPrice;
+                }
+                TempData["Total"] = x;
+            }
+
+            return View(list);
+        }
+
+        public IActionResult AddToCart(int? id)
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            Product producto = _context.Products.Where(p => p.ItemId == id).SingleOrDefault();
+            return View(producto);
+            
+        }
+        [HttpPost]
+        public IActionResult AddToCart(string qty, int id)
+        {         
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
+
+            // this retrieves the foreign key id from customer table
+            var latestCId = _context.Customers.FirstOrDefault(c => c.ApplicationUser == user).CustomerId;
+            Customer cust = _context.Customers.FirstOrDefault(c => c.CustomerId == latestCId);
+
+            Product producto = _context.Products.Where(p => p.ItemId == id).SingleOrDefault();
+
+
+            AddToCart cart = new AddToCart();
+
+            cart.Customer = cust;
+            cart.Product = producto;
+            cart.ProductImage = producto.ImagePath;
+            cart.ProductName = producto.ItemName;
+            cart.ProductPrice = producto.Price;
+            cart.Quantity = Convert.ToInt32(qty);
+            cart.TotalPrice = cart.ProductPrice * cart.Quantity;
+
+            _context.AddToCarts.Add(cart);
+            _context.SaveChanges();
+        
+            return RedirectToAction("DisplayView");
+        }
+        public IActionResult DeleteItem(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("AddToCartDisplay");
+            }
+
+            var cart = _context.AddToCarts.Where(i => i.CartId == id).SingleOrDefault();
+            if (cart == null)
+            {
+                return RedirectToAction("AddToCartDisplay");
+            }
+
+            _context.AddToCarts.Remove(cart);
+            _context.SaveChanges();
+
+            return RedirectToAction("AddToCartDisplay");
+        }
+
+        public IActionResult PurchaseView()
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+
+            ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
+            var latestCId = _context.Customers.FirstOrDefault(c => c.ApplicationUser == user).CustomerId;
+            Customer cust = _context.Customers.FirstOrDefault(c => c.CustomerId == latestCId);
+
+            var list = _context.CheckOutUsers.Where(c => c.Customer == cust).ToList();
+            return View(list);
+        }
+        public IActionResult Purchase(int? id)
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            AddToCart check = _context.AddToCarts.Where(c => c.CartId == id).SingleOrDefault();
+            return View(check);
+        }
+        [HttpPost]
+        public IActionResult Purchase(CheckOutUser record, int id)
+        {
+            ViewBag.userId = _userManager.GetUserName(HttpContext.User);
+            ApplicationUser user = _context.ApplicationUsers.FirstOrDefault(u => u.Id == _userManager.GetUserId(HttpContext.User));
+            var latestCId = _context.Customers.FirstOrDefault(c => c.ApplicationUser == user).CustomerId;
+            Customer cust = _context.Customers.FirstOrDefault(c => c.CustomerId == latestCId);
+
+            AddToCart addCart = _context.AddToCarts.Where(a => a.CartId == id).SingleOrDefault();
+
+            CheckOutUser checks = new CheckOutUser();
+
+            checks.Customer = cust;
+            checks.AddToCart = addCart;
+            checks.ProductName = addCart.ProductName;
+            checks.TotalPrice = addCart.TotalPrice;
+            checks.ShippingFee = 180;
+            checks.TotalPayment = checks.ShippingFee + checks.TotalPrice;
+            checks.DateAdded = DateTime.Now;
+            checks.Status = record.Status;
+ 
+            _context.CheckOutUsers.Add(checks);
+            _context.SaveChanges();
+
+            return RedirectToAction("PurchaseView");
+
+        }
     }
 }
+

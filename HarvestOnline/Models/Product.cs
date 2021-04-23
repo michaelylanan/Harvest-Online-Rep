@@ -50,4 +50,22 @@ namespace HarvestOnline.Models
         public string Status { get; set; }
 
     }
+
+    public class AddToCart
+    {
+        [Key]
+        public int CartId { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual Product Product { get; set; }
+
+        public string ProductName { get; set; }
+        public string ProductImage { get; set; }
+        public decimal ProductPrice { get; set; }
+
+        [Required(ErrorMessage = "Required*")]
+        [Range(0, 120, ErrorMessage = "{0} age must be between 0 -120")]
+        public int Quantity { get; set; }
+
+        public decimal TotalPrice { get; set; }
+    }
 }

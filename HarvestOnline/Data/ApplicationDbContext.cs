@@ -9,10 +9,10 @@ using HarvestOnline.Models;
 
 namespace HarvestOnline.Data
 {
-    public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            :base(options)
+            : base(options)
         {
         }
 
@@ -28,9 +28,10 @@ namespace HarvestOnline.Data
             base.OnModelCreating(builder);
         }
 
-        public DbSet<HarvestOnline.Models.CheckOut> CheckOut { get; set; }
 
         public DbSet<HarvestOnline.Models.Mail> Mail { get; set; }
+        public DbSet<HarvestOnline.Models.AddToCart> AddToCarts {get;set;}
+        public DbSet<HarvestOnline.Models.CheckOutUser> CheckOutUsers { get; set; }
     }
 }
 

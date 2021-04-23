@@ -25,7 +25,9 @@
                                     <img style="width:240px; height:200px; border-radius:10px; margin-bottom:30px" src="@Url.Content(item.ImagePath)" />
                                     <figcaption>@Html.DisplayFor(modelItem => item.ItemName)</figcaption>
                                     <figcaption style="color:limegreen;">@Html.DisplayFor(modelItem => item.Price)</figcaption>
-                                    <figcaption style="margin-top:30px"><input type="submit" value="Add To Cart" class="btn btn hover btn btn-secondary" style="background-color:#ecf0dd; border-radius:8px; border-color:black" /></figcaption>
+                                    <figcaption style="margin-top:30px"><span class="btn btn hover btn btn-secondary" style="background-color:#ecf0dd; 
+                                                border-radius:8px; border-color:black">@Html.ActionLink("Add to Cart", "AddToCart", new { id = item.ItemId })
+                                                </span></figcaption>
                                 </figure>
                             </td>
                         </tr>
